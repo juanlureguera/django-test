@@ -1,0 +1,326 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>TravelApp :: home</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Beta app" />
+	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+	<meta name="author" content="Juan Luis Reguera Gómez" />
+
+  <!-- 
+	//////////////////////////////////////////////////////
+		
+	Email: 			srjuanlu94@gmail.com
+	Twitter: 		http://twitter.com/SirSilva94
+	Facebook: 		https://www.facebook.com/fh5co
+
+	//////////////////////////////////////////////////////
+	 -->
+
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content=""/>
+	<meta name="twitter:image" content=""/>
+	<meta name="twitter:url" content=""/>
+	<meta name="twitter:card" content=""/>
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
+	<!-- Animate.css -->
+	<link rel="stylesheet" href= '{% static "css/animate.css" %}'>
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href='{% static "css/icomoon.css" %}'>
+	<!-- Simple Line Icons -->
+	<link rel="stylesheet" href='{% static "css/simple-line-icons.css" %}'>
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href='{% static "css/magnific-popup.css" %}'>
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href='{% static "css/bootstrap.css" %}'>
+
+	<link rel="stylesheet" href='{% static "css/style4.css" %}'>
+
+	<!-- Styleswitcher ( This style is for demo purposes only, you may delete this anytime. ) -->
+	<link rel="stylesheet" href='{% static "css/map.css" %}'>
+	<link rel="stylesheet" id="theme-switch" href='{% static "css/style4.css"%}'>
+	<!--AJAX-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- Modernizr JS -->
+	<script src='{% static "js/modernizr-2.6.2.min.js" %}'></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+	</head>
+	<body id="cero-home">
+	<!-- Preloader -->
+    <div class="preloader">
+        <div class="status"></div>
+    </div>
+	<!--Log-in-->
+	<div class="modal fade" id="modal-login-confirmed" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+    			<div class="modal-body">
+          			<form role="form" method="POST"> {% csrf_token %}
+            		<div class="form-group col-md-6">
+              			<label for="usrname"><span class="glyphicon glyphicon-user"></span>Usuario</label>
+              			<input type="text" class="form-control" id="usrname" name="usrname" placeholder="Usuario">
+            		</div>
+            		<div class="form-group col-md-6">
+              			<label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Contraseña</label>
+              			<input type="password" class="form-control" id="psw" name="psw" placeholder="Contraseña">
+            		</div>
+            		<!--<div class="checkbox">
+              			<label><input type="checkbox" value="" checked>Remember me</label>
+            		</div>-->
+              			<button type="button" id="login-button" class="btn btn-primary btn-success btn-block" onclick="loginUser()"><span class="glyphicon glyphicon-off"></span> Login</button>
+          			</form>
+        		</div>
+    			<div class="modal-footer">
+
+      			</div>
+        	</div>
+      	</div>
+    </div>
+	<!--Log-in-->
+  <!--Register-->
+  <div class="modal fade" id="modal-driver-register" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+            <div class="modal-header col-md-12">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+          <div class="modal-body">
+              <form role="form" method="POST"> {% csrf_token %}
+			  <h4>Datos de Cuenta</h4>
+              <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <input type="text" name="bancR" id="bancR" class="form-control input-sm" placeholder="Cuenta bancaria">
+                </div>
+              </div>
+				  <br>
+				  <br>
+				  <br>
+				  <br>
+              <h4>Datos del vehículo</h4>
+              <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <input type="text" name="matricula" id="matricula" class="form-control input-sm" placeholder="Matricula">
+                </div>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <input type="text" name="marca" id="marca" class="form-control input-sm" placeholder="Marca">
+                </div>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <input type="text" name="modelo" id="modelo" class="form-control input-sm" placeholder="modelo">
+                </div>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <input type="text" name="anios" id="anios" class="form-control input-sm" placeholder="Años">
+                </div>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <input type="text" name="km" id="km" class="form-control input-sm" placeholder="km">
+                </div>
+              </div>
+              <input type="button" value="Register" class="btn btn-info btn-block" onclick="registerUserDriver()">
+            </form>
+            </div>
+          </div>
+      </div>
+    </div>
+  <!--Register-->
+	<!--Modal Route-->
+		<div class="modal fade" id="modal-routes" role="dialog">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+	    			<div class="modal-body">
+	          			<form role="form">
+		          			<div>
+		          				<div panel with panel-default>
+									<div class=panel-heading>
+										<div class = "container-fluid" >
+			                              	<div class = "col-xs-12" >
+			                                  	<h3 class="panel-title" style="color:#3e433d;">Mis peticiones:</h3>
+			                              	</div>
+			                          	</div>
+									</div>
+									<div class="panel-body">
+										<ul class="list-group">
+											{% for result in routes %}
+											<a href='http://127.0.0.1:8000/route/{{result.idR}}' class="list-group-item list-group-item-default" style="cursor:pointer;">
+												<div style="padding-left: 88%;">
+													<h6> Fecha: {{result.day}} </h6>
+												</div>
+												<div>
+													<b style="color: #3e433d; font-size: 12px;">Recogida:</b> {{result.start}}
+													<br>
+													<b style="color: #3e433d; font-size: 12px">Destino:</b> {{result.end}}<br>
+												</div>
+									  		</a>
+									  		{% endfor %}
+										</ul>	
+									</div>
+								</div>
+		            		</div>
+          				</form>
+	        		</div>
+	        	</div>
+	      	</div>
+	    </div>
+		<!--Modal Route-->
+		<div class="modal fade" id="modal-route" role="dialog">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+	    			<div class="modal-body">
+	          			<form role="form">
+	          			<div>
+	          				<div panel with panel-default class">
+								<div class=panel-heading>
+									<div class = "container-fluid" >
+		                              	<div class = "col-xs-4" >
+		                                  	<h3 class="panel-title" style="color:#3e433d;">Recorrido:</h3>
+		                              	</div>
+		                          	</div>
+								</div>
+								<div class="panel-body">
+									<table style="border-spacing: 10px;border-collapse: separate;">
+										<tr>
+											<td><label><span>Distancia:</span></label></td>
+											<td><label class="label-route" for="distance-label" name="distance"></label></td>
+										</tr>
+										<tr>
+											<td><label><span>Tiempo:</span></label></td>
+											<td><label class="label-route" for="duration-label" name="time"></label></td>
+										</tr>
+										<tr>
+											<td><label><span>Precio:</span></label></td>
+											<td><label class="label-route" for="price-label" name="price"></label></label></td>
+										</tr>
+									</table>
+									<div class="form-group col-md-12">
+										<label><span>Fecha: </span></label>
+				              			<select id="day" class="day" onmousedown="if(this.options.length>8){this.size=2;}"  onchange='this.size=0;' onblur="this.size=0;"></select>
+				              			<select id="month" class="month" onmousedown="if(this.options.length>8){this.size=2;}"  onchange='this.size=0;' onblur="this.size=0;"></select>
+				              			<select id="year" class="year" onmousedown="if(this.options.length>8){this.size=2;}"  onchange='this.size=0;' onblur="this.size=0;"></select>
+				            		</div>
+									<div class="form-group col-md-6">
+										<label><span>horas</span></label>
+				              			<select id="hour" name="hour" class="h" onmousedown="if(this.options.length>8){this.size=2;}"  onchange='this.size=0;' onblur="this.size=0;"></select>
+				            		</div>
+				            		<div class="form-group col-md-6">
+				            			<label><span>min</span></label>
+				              			<select id="minutes" name="minutes" class="min" onmousedown="if(this.options.length>8){this.size=2;}"  onchange='this.size=0;' onblur="this.size=0;"></select>
+				            		</div>
+				            		
+									<div class = "form-group">
+				              			<button type="button" class="btn btn-primary btn-success btn-block" onclick="createRoute()"><span class="glyphicon glyphicon-off"></span>Aceptar</button>
+									</div>
+								</div>
+							</div>
+	            		</div>
+          			</form>
+	        		</div>
+	        	</div>
+	      	</div>
+	    </div>
+	    <!--Modal-->
+		<div class="gradient">
+			<header role="banner" id="cero-header">
+				<!-- Fixed navbar -->
+	    		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	      			<div class="container">
+	        			<div class="navbar-header">
+	          				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	            				<span class="sr-only">Toggle navigation</span>
+					            <span class="icon-bar"></span>
+					            <span class="icon-bar"></span>
+					            <span class="icon-bar"></span>
+	          				</button>
+	          				<a class="navbar-brand" href="#">TravelApp</a>
+	        			</div>
+		        		<div class="navbar-collapse collapse">
+			          		<ul class="nav navbar-nav navbar-right">
+			            		<li class="dropdown">
+			              			<a id="navbarcolor" href="#" class="dropdown-toggle" data-toggle="dropdown">Opciones</a>
+			              			<ul class="dropdown-menu">
+										<li><a href="http://127.0.0.1:8000/messages-list" style="cursor:pointer;">Mensajes</a></li>
+						             	<li class="dropdown-header">Usuario no-conductor</li>
+						                <li onclick="viewProfile()"><a style="cursor:pointer;">Perfil</a></li>
+						                <li onclick="getList()"><a style="cursor:pointer;">Peticiones</a></li>
+						                <li onclick="logout()"><a href="http://127.0.0.1:8000/logout" style="cursor:pointer;">Log-out</a></li>
+						                <li class="divider"></li>
+						                <li class="dropdown-header">Usuario conductor</li>
+										{% if isDriver %}
+						                	<li onclick="modallogindriver()"><a data-toggle="modal" id="login-confirmed" style="cursor:pointer;">Iniciar sesión como conductor</a></li>
+										{% else %}
+											<li onclick="modalregisterdriver()"><a data-toggle="modal"  id="driver-register"  style="cursor:pointer;">Registrarse como conductor</a></li>
+										{% endif %}
+
+					              </ul>
+			            		</li>            
+			          		</ul>
+		        		</div><!--/.nav-collapse -->
+	      			</div>
+	    		</div>
+			</header>
+				<input id="origin-input" class="controls" type="text"
+			    placeholder="Enter an origin location">
+			    <input id="destination-input" class="controls" type="text"
+			    placeholder="Enter a destination location">
+			    <!--Map-->
+			    <div id="init-content">
+			    	<div id="map2"></div>
+			    </div>
+    	</div>
+    	<div class="slant" id="cero-home-footer"></div>
+    	
+	<!-- End demo purposes only -->
+	<!-- jQuery -->
+	<script src='{% static "js/jquery.min.js" %}'></script>
+	<!-- jQuery Easing -->
+	<script src='{% static "js/jquery.easing.1.3.js" %}'></script>
+	<!-- Bootstrap -->
+	<script src='{% static "js/bootstrap.min.js" %}'></script>
+	<!-- Waypoints -->
+	<script src='{% static "js/jquery.waypoints.min.js" %}'></script>
+	<!-- Stellar Parallax -->
+	<script src='{% static "js/jquery.stellar.min.js" %}'></script>
+	<!-- Counter -->
+	<script src='{% static "js/jquery.countTo.js" %}'></script>
+	<!-- Magnific Popup -->
+	<script src='{% static "js/jquery.magnific-popup.min.js" %}'></script>
+	<script src='{% static "js/magnific-popup-options.js" %}'></script>
+	<!-- For demo purposes only styleswitcher ( You may delete this anytime ) -->
+	<script src='{% static "js/jquery.style.switcher.js" %}'></script>
+	<!-- Main JS (Do not remove) -->
+	<script src='{% static "js/main.js" %}'></script>
+	<!-- Google Map -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL_HS-sEsuqYtQdBy1NVFnz_V3AW7YcqQ&signed_in=true&libraries=places&callback=initMap" async defer></script>
+	<script src='{% static "js/google-map2.js" %}'></script>
+	<script src='{% static "js/appHome.js" %}'></script>
+	<script src='{% static "js/date.js" %}'></script>
+	<script src='{% static "js/preloader.js" %}'></script>
+	</body>
+</html>
+

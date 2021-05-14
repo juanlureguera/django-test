@@ -1,0 +1,296 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>TravelApp</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="TravelApp" />
+	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+	<meta name="author" content="Juan Luis Reguera Gómez" />
+
+  <!-- 
+	//////////////////////////////////////////////////////
+		
+	Email: 			srjuanlu94@gmail.com
+	Twitter: 		http://twitter.com/SirSilva94
+	Facebook: 		https://www.facebook.com/fh5co
+
+	//////////////////////////////////////////////////////
+	 -->
+
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content=""/>
+	<meta name="twitter:image" content=""/>
+	<meta name="twitter:url" content=""/>
+	<meta name="twitter:card" content=""/>
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
+	<!-- Animate.css -->
+	<link rel="stylesheet" href='{% static "css/animate.css" %}'>
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href='{% static "css/icomoon.css" %}'>
+	<!-- Simple Line Icons -->
+	<link rel="stylesheet" href='{% static "css/simple-line-icons.css" %}'>
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href='{% static "css/magnific-popup.css" %}'>
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href='{% static "css/bootstrap.css" %}'>
+
+	<link rel="stylesheet" href='{% static "css/style4.css" %}'>
+
+	<!-- Styleswitcher ( This style is for demo purposes only, you may delete this anytime. ) -->
+	<link rel="stylesheet" id="theme-switch" href='{% static "css/style4.css" %}'>
+	<!--AJAX-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- Modernizr JS -->
+	<script src='{% static "js/modernizr-2.6.2.min.js" %}'></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+	</head>
+	<body>
+	<!-- Preloader -->
+    <div class="preloader">
+        <div class="status"></div>
+    </div>
+	<!--Log-in-->
+	<div class="modal fade" id="modal-login" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+    			<div class="modal-body">
+          			<form role="form" method="POST"> {% csrf_token %}
+            		<div class="form-group col-md-6">
+              			<label for="usrname"><span class="glyphicon glyphicon-user"></span>Usuario</label>
+              			<input type="text" class="form-control" id="usrname" name="usrname" placeholder="Usuario">
+            		</div>
+            		<div class="form-group col-md-6">
+              			<label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Contraseña</label>
+              			<input type="password" class="form-control" id="psw" name="psw" placeholder="Contraseña">
+            		</div>
+            		<!--<div class="checkbox">
+              			<label><input type="checkbox" value="" checked>Remember me</label>
+            		</div>-->
+              			<button type="button" id="login-button" class="btn btn-primary btn-success btn-block" onclick="loginUser()"><span class="glyphicon glyphicon-off"></span> Login</button>
+          			</form>
+        		</div>
+    			<div class="modal-footer">
+      			</div>
+        	</div>
+      	</div>
+    </div>
+	<!--Log-in-->
+	<!--Register-->
+	<div class="modal fade" id="modal-register" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal">&times;</button>
+      			</div>
+  				<div class="modal-body">
+        			<form role="form" method="POST"> {% csrf_token %}
+        				<div class="row">
+        					<div class="col-xs-6 col-sm-6 col-md-6">
+		    					<div class="form-group">
+		                			<input type="text" name="usrnameR" id="usrnameR" class="form-control input-sm floatlabel" placeholder="Usuario">
+		    					</div>
+		    				</div>
+		    				<div class="col-xs-6 col-sm-6 col-md-6">
+		    					<div class="form-group">
+		                			<input type="text" name="dniR" id="dniR" class="form-control input-sm floatlabel" placeholder="DNI">
+		    					</div>
+		    				</div>
+        				</div>
+		    			<div class="row">
+		    				<div class="col-xs-6 col-sm-6 col-md-6">
+		    					<div class="form-group">
+		                			<input type="text" name="nameR" id="nameR" class="form-control input-sm floatlabel" placeholder="Nombre completo">
+		    					</div>
+		    				</div>
+		    				<div class="col-xs-6 col-sm-6 col-md-6">
+		    					<div class="form-group">
+		    						<label><span>Fecha de Nacimiento:</span></label><br>
+			              			<select id="day" class="day" onmousedown="if(this.options.length>8){this.size=2;}"  onchange='this.size=0;' onblur="this.size=0;"></select>
+			              			<select id="month" class="month" onmousedown="if(this.options.length>8){this.size=2;}"  onchange='this.size=0;' onblur="this.size=0;"></select>
+			              			<select id="year" class="year" onmousedown="if(this.options.length>8){this.size=2;}"  onchange='this.size=0;' onblur="this.size=0;"></select>
+		    					</div>
+		    				</div>
+		    			</div>
+		    			<div class="form-group">
+		    				<input type="email" name="emailR" id="emailR" class="form-control input-sm" placeholder="Email">
+		    			</div>
+		    			<div class="row">
+		    				<div class="col-xs-6 col-sm-6 col-md-6">
+		    					<div class="form-group">
+		    						<input type="password" name="pswR" id="pswR" class="form-control input-sm" placeholder="Contraseña">
+		    					</div>
+		    				</div>
+		    				<div class="col-xs-6 col-sm-6 col-md-6">
+		    					<div class="form-group">
+		    						<input type="password" name="pswcR" id="pswcR" class="form-control input-sm" placeholder="Repita contraseña">
+		    					</div>
+		    				</div>
+		    			</div>
+		    			<div class="form-group">
+		    				<input type="text" name="bancR" id="bancR" class="form-control input-sm" placeholder="Nº de teléfono">
+		    			</div>
+		    			<input type="button" value="Register" class="btn btn-info btn-block" onclick="registerUser()">
+		    		</form>
+      			</div>
+      		</div>
+  		</div>
+    </div>
+	<!--Register-->
+	<header role="banner" id="fh5co-header">
+		<div class="container">
+			<!-- <div class="row"> -->
+		    <nav class="navbar navbar-default">
+		        <div class="navbar-header">
+		        	<!-- Mobile Toggle Menu Button -->
+					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
+		         	<a class="navbar-brand" href="index.html">TravelApp</a>
+		        </div>
+		        <div id="navbar" class="navbar-collapse collapse">
+		          	<ul class="nav navbar-nav navbar-right">
+			            <li class="active"><a href="#" data-nav-section="home"><span>Inicio</span></a></li>
+			            <li><a data-toggle="modal" href="#modal-login" id="href-login"><span>Entra</span></a></li>
+			            <li><a data-toggle="modal" href="#modal-register" id="href-register"><span>Regístrate</span></a></li>
+			            <!--<li><a href="#" data-nav-section="services"><span>Services</span></a></li>-->
+			            <li><a href="#" data-nav-section="about"><span>Sobre Nosotros</span></a></li>
+			            <li><a href="#" data-nav-section="contact"><span>Contacto</span></a></li>
+		          	</ul>
+		        </div>
+		    </nav>
+		  	<!-- </div> -->
+	  	</div>
+	</header>
+
+	<section id="fh5co-home" data-section="home" style="background-image: static/images/full_image_2.jpg;" data-stellar-background-ratio="0.5">
+		<div class="gradient"></div>
+		<div class="container">
+			<div class="text-wrap">
+				<div class="text-inner">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+							<h1 class="to-animate">Eficiente y confortable.</h1>
+							<!--<h2 class="to-animate">Another free HTML5 bootstrap template by <a href="http://freehtml5.co/" target="_blank" title="Free HTML5 Bootstrap Templates">FREEHTML5.co</a> released under <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">Creative Commons 3.0</a></h2>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="slant"></div>
+	</section>
+	<section id="fh5co-about" data-section="about">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 section-heading text-center">
+					<h2 class="to-animate">Sobre nosotros</h2>
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2 subtext to-animate">
+							<h3>Somos una pequeña empresa nacional. Intentamos proporcionar a nuestros clientes una red de transporte privado, a través de nuestro software.</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<br><br><br><br><br><br><br>
+			</div>
+		</div>
+	</section>
+
+	<section id="fh5co-contact" data-section="contact">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 section-heading text-center">
+					<h2 class="to-animate">Contacto</h2>
+					<!--<div class="row">
+						<div class="col-md-8 col-md-offset-2 subtext to-animate">
+							<h3></h3>
+						</div>
+					</div>-->
+				</div>
+			</div>
+			<div class="row row-bottom-padded-md">
+				<div class="col-md-6 to-animate">
+					<h3>Contact Info</h3>
+					<ul class="fh5co-contact-info">
+						<li><i class="icon-phone"></i> 634 97 76 09 </li>
+						<li><i class="icon-envelope"></i>srjuanlu94@gmail.com</li>
+						<li><i class="icon-globe"></i>Cádiz, España</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="map" class="to-animate"></div>
+	</section>
+	
+	<footer id="footer" role="contentinfo">
+		<a href="#" class="gotop js-gotop"><i class="icon-arrow-up2"></i></a>
+		<div class="container">
+			<div class="">
+				<div class="col-md-12 text-center">
+					<p>&copy; TravelApp <br>Created by Juan Luis Reguera Gómez</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<ul class="social social-circle">
+						<li><a href="#"><i class="icon-twitter"></i></a></li>
+						<li><a href="#"><i class="icon-facebook"></i></a></li>
+						<li><a href="#"><i class="icon-youtube"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- End demo purposes only -->
+	<!-- jQuery -->
+	<script src='{% static "js/jquery.min.js" %}'></script>
+	<!-- jQuery Easing -->
+	<script src='{% static "js/jquery.easing.1.3.js" %}'></script>
+	<!-- Bootstrap -->
+	<script src='{% static "js/bootstrap.min.js" %}'></script>
+	<!-- Waypoints -->
+	<script src='{% static "js/jquery.waypoints.min.js" %}'></script>
+	<!-- Stellar Parallax -->
+	<script src='{% static "js/jquery.stellar.min.js" %}'></script>
+	<!-- Counter -->
+	<script src='{% static "js/jquery.countTo.js" %}'></script>
+	<!-- Magnific Popup -->
+	<script src='{% static "js/jquery.magnific-popup.min.js" %}'></script>
+	<script src='{% static "js/magnific-popup-options.js" %}'></script>
+	<!-- Google Map -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL_HS-sEsuqYtQdBy1NVFnz_V3AW7YcqQ&sensor=false"></script>
+	<script src='{% static "js/google_map.js" %}'></script>
+
+	<script src='{% static "js/jquery.style.switcher.js" %}'></script>
+	<!--Log-In-->
+	<script>
+		
+	</script>
+	<!--Log-In-->
+	<script src='{% static "js/main.js"%}'></script>
+	<script src='{% static "js/appLogin.js"%}'></script>
+	<script src='{% static "js/appRegister.js"%}'></script>
+	<script src='{% static "js/date.js"%}'></script>
+	<script src='{% static "js/preloader.js" %}'></script>
+	</body>
+</html>

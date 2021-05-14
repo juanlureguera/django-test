@@ -1,0 +1,15 @@
+class ServerError:
+    enum = { 	"SQL_ERROR": "00", 
+    			"CREATE_SESSION" : "01", 
+    			"INVALID_SESSION": "02",  
+    			"BAD_AUTH": "03", 
+    			"INVALID_REGISTER": "04", 
+    			"INVALID_ROUTE": "05",
+    			"DUP_REGISTER": "06", 
+    			"CREATE_REGISTER": "07", 
+    			"NO_ERROR": "08",
+    			"WRONG_USER": "09",
+    			"CODIFICATION_ERROR": "10",
+    			"PROFILE_SET": "11",
+    			"PROFILE_GET": "12",
+                "NO_DRIVER": "13"}

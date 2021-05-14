@@ -1,0 +1,304 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--<style>html { overflow-y: scroll; }</style>-->
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Perfil de {{ loginName }}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Beta app" />
+	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+	<meta name="author" content="Juan Luis Reguera Gómez" />
+
+  <!-- 
+	//////////////////////////////////////////////////////
+		
+	Email: 			srjuanlu94@gmail.com
+	Twitter: 		http://twitter.com/SirSilva94
+	Facebook: 		https://www.facebook.com/fh5co
+
+	//////////////////////////////////////////////////////
+	 -->
+
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content=""/>
+	<meta name="twitter:image" content=""/>
+	<meta name="twitter:url" content=""/>
+	<meta name="twitter:card" content=""/>
+
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
+	<!-- Animate.css -->
+	<link rel="stylesheet" href= '{% static "css/animate.css" %}'>
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href='{% static "css/icomoon.css" %}'>
+	<!-- Simple Line Icons -->
+	<link rel="stylesheet" href='{% static "css/simple-line-icons.css" %}'>
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href='{% static "css/magnific-popup.css" %}'>
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href='{% static "css/bootstrap.css" %}'>
+
+	<link rel="stylesheet" href='{% static "css/style4.css" %}'>
+	<link rel="stylesheet" href='{% static "css/appProfile.css" %}'>
+
+	<!-- Styleswitcher ( This style is for demo purposes only, you may delete this anytime. ) -->
+	<link rel="stylesheet" href='{% static "css/map.css" %}'>
+	<link rel="stylesheet" id="theme-switch" href='{% static "css/style4.css"%}'>
+	<!--AJAX-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- Modernizr JS -->
+	<script src='{% static "js/modernizr-2.6.2.min.js" %}'></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+	</head>
+	<body id="cero-home">
+	<!-- Preloader -->
+    <div class="preloader">
+        <div class="status"></div>
+    </div>
+	<!--Modal Confirmation-->
+		<div class="modal fade" id="modal-confirmation" role="dialog">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+	    			<div class="modal-body">
+	          			<form role="form">
+	          			<div>
+	          				<label for = "txtPasswordActual" style="color:#3e433d;"">No se han guardado ni cancelado los cambios, ¿Esta seguro de salir de su perfil?</label>
+	          				<div style="margin-left: 20%">
+	          					<button type="button" class="btn btn btn-success btn-sm" id="yesConfirm"><span class="glyphicon glyphicon-hand-left"></span>SI</button>
+	          					<button type="button" class="btn btn btn-danger btn-sm" data-dismiss="modal"><span class="glyphicon glyphicon-thumbs-down"></span>NO</button>
+	          				</div>
+	            		</div>
+          			</form>
+	        		</div>
+	        	</div>
+	      	</div>
+	    </div>
+	    <!--Modal-->
+		<!--Modal Save-->
+		<div class="modal fade" id="modal-save" role="dialog">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+	    			<div class="modal-body">
+	          			<form role="form">
+	          			<div>
+	          				<label for = "txtPasswordActual" style="color:#3e433d;"">Confirma contraseña</label>
+	          				<label for = "txtPasswordActual"><span class = "glyphicon glyphicon-ok" style="color:#3e433d;"></span></label>
+					      	<input type = "password" class = "form-control" placeholder = "Pass actual" name = "txtPasswordConfirm" id = "txtPasswordConfirm">
+	            		</div>
+              			<button id="buttonConfirm" type="button" class="btn btn-primary btn-success btn-block" onclick="validatePass()"><span class="glyphicon glyphicon-off"></span>Guardar</button>
+          			</form>
+	        		</div>
+	        	</div>
+	      	</div>
+	    </div>
+	    <!--Modal-->
+	    <!--Modal Pass Change-->
+		<div class="modal fade" id="modal-passChange" role="dialog">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+	    			<div class="modal-body">
+	          			<form role="form">
+	          			<div>
+	          				<label for = "txtPasswordActual" style="color:#3e433d;"">Cambiar contraseña:</label>
+					      	<input style="height: 22px;" type = "password" class = "form-control" placeholder = "Contraseña actual" name ="passActual" id = "passActual"/>
+					      	<input style="height: 22px;margin-top: 2%" type = "password" class = "form-control" placeholder = "Nueva contraseña" id = "passNew" name = "passNew"/>
+					      	<input style="height: 22px;margin-top: 2%;margin-bottom: 2%" type = "password" class = "form-control" placeholder = "Repita nueva contraseñ" id = "rePassNew" name="rePassNew"/>
+	            		</div>
+              			<button type="button" class="btn btn-default btn-block" onclick="validateChangePass()"><span class="glyphicon glyphicon-off"></span>Guardar</button>
+          			</form>
+	        		</div>
+	        	</div>
+	      	</div>
+	    </div>
+	    <!--Modal-->
+	    <!--Modal bornDate Change-->
+		<div class="modal fade" id="modal-bornDateChange" role="dialog">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+	    			<div class="modal-body">
+	          			<form role="form">
+	          			<div>
+	          				<label for = "txtPasswordActual" style="color:#3e433d;"">Cambiar fecha de nacimiento:</label>
+	              			<select id="day" class="day" style="margin-left: 20%;margin-bottom: 4%" onmousedown="if(this.options.length>8){this.size=2;}"  onchange='this.size=0;' onblur="this.size=0;"></select>
+	              			<select id="month" class="month" onmousedown="if(this.options.length>8){this.size=2;}"  onchange='this.size=0;' onblur="this.size=0;"></select>
+	              			<select id="year" class="year" onmousedown="if(this.options.length>8){this.size=2;}"  onchange='this.size=0;' onblur="this.size=0;"></select>
+	            		</div>
+              			<button type="button" class="btn btn-default btn-block" onclick="validateChangeBornDate()"><span class="glyphicon glyphicon-off"></span>Guardar</button>
+          			</form>
+	        		</div>
+	        	</div>
+	      	</div>
+	    </div>
+	    <!--Modal-->
+		<div class="gradient">
+			<header role="banner" id="cero-header">
+				<!-- Fixed navbar -->
+	    		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	      			<div class="container">
+	        			<div class="navbar-header">
+	          				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	            				<span class="sr-only">Toggle navigation</span>
+					            <span class="icon-bar"></span>
+					            <span class="icon-bar"></span>
+					            <span class="icon-bar"></span>
+	          				</button>
+	          				<a class="navbar-brand" href="#">TravelApp</a>
+	        			</div>
+		        		<div class="navbar-collapse collapse">
+			          		<ul class="nav navbar-nav navbar-right">
+			            		<li class="dropdown">
+			              			<a id="navbarcolor" href="#" class="dropdown-toggle" data-toggle="dropdown">Opciones</a>
+			              			<ul class="dropdown-menu" id="dropdown-menu">
+										{% if isMe %}
+											<li class="dropdown-header">Opciones de perfil</li>
+											<li id="edit"><a style="cursor:pointer;" onclick="edit()">Editar</a></li>
+											<li id="save"><a style="cursor:pointer;" onclick="save()">Guardar</a></li>
+											<li id="cancel"><a style="cursor:pointer;" onclick="cancel()">Cancelar</a></li>
+										{% endif %}
+						                <li class="dropdown-header">Otras opciones</li>
+						                <li id="return"><a style="cursor:pointer;" onclick="returnFunction()">Volver a menú principal</a></li>
+					              </ul>
+			            		</li>            
+			          		</ul>
+		        		</div><!--/.nav-collapse -->
+	      			</div>
+	    		</div>
+			</header>
+			<div class = "container" style="margin-top: 7%;">
+            	<div class="col-md-3">
+					<div class="profile-sidebar">
+						<!-- SIDEBAR USERPIC -->
+						<div class="profile-userpic">
+							<img src="{% static 'images/avatar/'%}default.png" alt="avatar" title="avatar" class="img-responsive" alt="">
+						</div>
+						<!-- END SIDEBAR USERPIC -->
+						<!-- SIDEBAR USER TITLE -->
+						<div class="profile-usertitle">
+							<div class="profile-usertitle-name">
+								<label name="txtUsername" id="txtUsername">{{ loginName }}</label>
+							</div>
+							<div class="profile-usertitle-job">
+								<label>Usuario</label> 
+								{% if userC %} 
+									<label> Conductor</label>
+								{% endif %}
+								<br>
+								{% if userC or driver %}
+									<label>Puntuación: {{puntuation}}</label>
+								{% endif %}
+							</div>
+						</div>
+						<!-- END SIDEBAR USER TITLE -->
+						<!-- SIDEBAR MENU -->
+						<!-- END MENU -->
+					</div>
+				</div>
+				<div class="col-md-9">
+		            <div class="profile-content">
+					   	<div class = "col-xs-12 col-sm-12">
+		                    <div class="panel with panel-default class">
+		                      	<div class="panel-heading">
+		                          	<div class = "container-fluid" >
+		                          	<div class ="col-xs-8 col-md-11"></div>
+		                              	<div class ="col-xs-1 col-md-1">
+											{% if isMe %}
+		                              		<div class="dropdown">
+												<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+												<span class="caret"></span></button>
+												<ul class="dropdown-menu">
+												  <li class="dropdown-header">Editar</li>
+												  <li><a style="cursor:pointer;" onclick="changePassConfirmation()">Password</a></li>
+												  <li><a style="cursor:pointer;" onclick="changebornDateConfirmation()">Fecha de nacimiento</a></li>
+												  <li class="divider"></li>
+												  <li class="dropdown-header">View</li>
+												  <li><a style="cursor:pointer;"onclick="changeTypePass()" id="passchange"></a></li>
+												</ul>
+										  	</div>
+											{% endif %}
+		                              	</div>
+		                          	</div>
+		                      	</div>
+		                      	<div class="panel-body">
+		                      		<div class="row">
+										<div class = "col-xs-6 col-md-6 form-inline" >
+											<div class = "form-group" style="margin-bottom: 1%; margin-top:5%">
+											      	<label for = "Nombre"><span class = "glyphicon glyphicon-user" style="color:#3e433d;"></span></label>
+											      	<input type = "text" class = "form-control label-profile" placeholder = "Nombre completo" id = "txtname" name="txtname" value = "{{ name }}" readonly />
+										  	</div>
+											{% if isMe %}
+										  	<div class = "form-group" style="margin-bottom: 1%">
+											      	<label for = "txtPassword"><span class = "glyphicon glyphicon-lock" style="color:#3e433d;"></span></label>
+											      	<input type = "password" class = "form-control label-profile" placeholder = "password" name="txtPasswordView" id = "txtPasswordView" value = "{{pass}}" readonly/>
+										  	</div>
+											{% endif %}
+											<div class = "form-group" style="margin-bottom: 1%">
+											      	<label for = "txtPassword"><span class = "glyphicon glyphicon-cutlery" style="color:#3e433d;"></span></label>
+											      	<input type = "text" class = "form-control label-profile" placeholder = "BornDate" name="txtBornDate" id = "txtBornDate" value = "{{bornDate}}" readonly/>
+										  	</div>
+									  	</div>
+									  	<div class = "col-xs-6 col-md-6 form-inline" >
+											{% if isMe %}
+											<div class = "form-group" style="margin-bottom: 1%; margin-top:5%">
+											      	<label for = "txtConfirmar"><span class = "glyphicon glyphicon-th-list" style="color:#3e433d;"></span></label>
+											      	<input type = "password" class = "form-control label-profile" placeholder = "DNI" name="dni" id = "dni" value = "{{dni}}" readonly />
+										  	</div>
+											{% endif %}
+										  	<div class = "form-group" style="margin-bottom: 1%">
+											      	<label for = "txtEmail"><span class = "glyphicon glyphicon-envelope" style="color:#3e433d;"></span></label>
+											      	<input type = "email" class = "form-control label-profile" placeholder = "La dirección de correo" name="txtEmail" id = "txtEmail" value = "{{ email }}" readonly />
+										  	</div>
+										</div>
+									</div>
+									<div class="row"> 
+										<div class = "col-xs-12 col-md-12 form-horizontal" >
+											<div class = "form-group" style="margin-bottom:1%; padding-left: 5%; padding-right: 5%;">
+										      	<label for = "txtCuentaB"><span class = "" style="color:#3e433d;"></span></label>
+										      	<input type = "text" class = "form-control label-profile" placeholder = "Cuenta bancaria" name="txtCuentaB" id = "txtCuentaB" value = "{{cuentaBancaria}}" readonly/>
+										  	</div>
+										</div>
+									</div>
+		                      	</div>
+		                	</div>
+		            	</div>
+		            </div>
+				</div>
+        	</div>
+    	</div>
+	<!-- End demo purposes only -->
+	<!-- jQuery -->
+	<script src='{% static "js/jquery.min.js" %}'></script>
+	<!-- jQuery Easing -->
+	<script src='{% static "js/jquery.easing.1.3.js" %}'></script>
+	<!-- Bootstrap -->
+	<script src='{% static "js/bootstrap.min.js" %}'></script>
+	<!-- Waypoints -->
+	<script src='{% static "js/jquery.waypoints.min.js" %}'></script>
+	<!-- Stellar Parallax -->
+	<script src='{% static "js/jquery.stellar.min.js" %}'></script>
+	<!-- Counter -->
+	<script src='{% static "js/jquery.countTo.js" %}'></script>
+	<!-- Magnific Popup -->
+	<script src='{% static "js/jquery.magnific-popup.min.js" %}'></script>
+	<script src='{% static "js/magnific-popup-options.js" %}'></script>
+	<!-- For demo purposes only styleswitcher ( You may delete this anytime ) -->
+	<script src='{% static "js/jquery.style.switcher.js" %}'></script>
+	<!-- Main JS (Do not remove) -->
+	<script src='{% static "js/main.js" %}'></script>
+	<script src='{% static "js/appProfile.js" %}'></script>
+	<script src='{% static "js/date.js" %}'></script>
+	<script src='{% static "js/preloader.js" %}'></script>
+	</body>
+</html>
+
